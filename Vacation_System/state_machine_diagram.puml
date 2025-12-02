@@ -1,0 +1,54 @@
+@startuml VTS_Leave_Request_State_Machine
+skinparam state {
+    BackgroundColor White
+    BorderColor DarkBlue
+    FontColor Black
+    ArrowColor #2A52BE
+}
+skinparam ArrowThickness 2
+
+title Leave Request State Lifecycle
+
+[*] --> Submitted : Submit Request
+
+state Submitted {
+  Submitted --> Failed : [Failed to retrieve EmployeeData]
+  Submitted --> Rejected_VTS : [VTS Rules check: Invalid]
+  
+  Submitted --> Approved : [VTS Rules check: Valid + Auto-Approval Role]
+  
+  Submitted --> PendingApproval : [VTS Rules check: Valid + Manual Approval Role]
+}
+
+state PendingApproval {
+  PendingApproval : Entry: Send Email to Manager
+  
+  PendingApproval --> Approved : Manager Approves
+  PendingApproval --> Rejected_Manager : Manager Rejects
+  PendingApproval --> PendingEscalated : Manager Decision Timeout/Error
+}
+
+state Approved {
+  Approved : Entry: Update Legacy System
+}
+
+state Rejected_VTS {
+  Rejected_VTS : Entry: Send Rejection Email
+}
+
+state Rejected_Manager {
+  Rejected_Manager : Entry: Send Rejection Email
+}
+
+state PendingEscalated {
+  PendingEscalated : Wait for HR/Admin Intervention
+}
+
+Failed : Exit: Send Failure Email
+
+Approved --> [*]
+Rejected_VTS --> [*]
+Rejected_Manager --> [*]
+Failed --> [*]
+
+@enduml

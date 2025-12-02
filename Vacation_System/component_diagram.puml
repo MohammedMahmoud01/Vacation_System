@@ -1,0 +1,67 @@
+@startuml VTS_Component_Diagram
+skinparam componentStyle uml2
+skinparam component {
+    BackgroundColor White
+    BorderColor DarkBlue
+    ArrowColor #2A52BE
+}
+
+title Vacation Tracking System - Component Architecture
+
+package "Client Layer" {
+    [Web Portal UI] as UI
+    note right of UI : Existing Intranet\nFrontend
+}
+
+package "VTS Business Logic Module" {
+    component "Request Controller" as Ctrl
+    component "Business Rules Engine" as Rules
+    component "Legacy Integration\nAdapter" as Adapter
+    component "Notification\nService" as Notify
+    
+    interface "ILeaveManagement" as ILeave
+    interface "IValidation" as IValidate
+    interface "IEmployeeData" as IEmpData
+    interface "ISummaryQuery" as IQuery
+    
+    ' Internal Wiring
+    Ctrl -up- ILeave
+    Rules -up- IValidate
+    Adapter -up- IEmpData
+    
+    Ctrl ..> IValidate : uses
+    Ctrl ..> IEmpData : uses
+    Rules ..> IEmpData : uses
+    
+    Ctrl --> Notify : triggers
+    
+    port "Web Service API" as WS_Port
+    WS_Port -down- IQuery
+    Ctrl -left- IQuery
+}
+
+package "Infrastructure / External" {
+    [SSO Identity Provider] as SSO
+    [HR Legacy System] as LegacySys
+    [Email Server] as SMTP
+    [Audit Log DB] as LogDB
+    
+    interface "IAuth" as IAuth
+    SSO -up- IAuth
+}
+
+' Cross-Boundary Connections
+UI ..> ILeave : submits/views
+UI ..> IAuth : authenticates
+
+Adapter ..> LegacySys : JDBC/RPC
+Notify ..> SMTP : SMTP
+Ctrl ..> LogDB : JDBC (Logging)
+Ctrl ..> IAuth : verifies session
+
+note bottom of WS_Port
+  External systems query 
+  employee summaries here
+end note
+
+@enduml

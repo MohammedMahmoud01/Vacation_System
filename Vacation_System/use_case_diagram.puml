@@ -1,0 +1,61 @@
+@startuml VTS_UseCaseDiagram
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Employee" as Emp
+actor "Manager" as Mgr
+actor "HR Personnel" as HR
+actor "System Admin" as Admin
+actor "External Internal System" as WebClient
+
+rectangle "Vacation Tracking System (VTS)" {
+    
+    usecase "Submit Leave Request\n(Vacation, Sick, Personal)" as UC_Submit
+    usecase "View Request History\n(Past & Future)" as UC_ViewHist
+    usecase "Approve/Reject Request" as UC_Approve
+    usecase "Award Personal Leave" as UC_Award
+    usecase "Override Validation Rules" as UC_Override
+    usecase "View Activity Logs" as UC_Logs
+    usecase "Query Vacation Summary\n(Web Service)" as UC_Query
+    
+    'System internal sub-functions
+    usecase "Validate Request Rules" as UC_Validate
+    usecase "Send Notification Email" as UC_Notify
+    usecase "Retrieve/Update Employee Data" as UC_HRData
+
+    'Main Actor connections
+    Emp --> UC_Submit
+    Emp --> UC_ViewHist
+    
+    Mgr --> UC_Approve
+    Mgr --> UC_Award
+    'Manager is also an Employee, so they inherit employee capabilities
+    Mgr --|> Emp 
+    
+    HR --> UC_Override
+    HR --> UC_Logs
+    
+    Admin --> UC_Logs
+    Admin --> UC_Override
+
+    WebClient --> UC_Query
+
+    'Includes and Extends
+    UC_Submit .> UC_Validate : <<include>>
+    UC_Validate .> UC_HRData : <<include>>
+    UC_Query .> UC_HRData : <<include>>
+    UC_Award .> UC_HRData : <<include>>
+    
+    UC_Notify .> UC_Submit : <<extend>>\n(on status change)
+    UC_Notify .> UC_Approve : <<extend>>\n(on decision)
+}
+
+'Secondary Actors
+actor "HR Legacy System" as LegacySys <<system>>
+actor "Email Server" as EmailSys <<system>>
+
+UC_HRData -- LegacySys
+UC_Notify -- EmailSys
+
+@enduml

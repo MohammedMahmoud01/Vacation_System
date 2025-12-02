@@ -1,0 +1,39 @@
+@startuml VTS_FlowChart
+skinparam activity {
+    BackgroundColor LightBlue
+    BorderColor DarkBlue
+    DiamondBackgroundColor LightYellow
+    DiamondBorderColor Gold
+}
+title Simplified Leave Request Process Flow
+
+start
+:Employee submits Leave Request;
+
+if (System Validates Request Rules?) then (Invalid)
+    :System auto-rejects request;
+    :Email Employee (Rejected);
+    stop
+else (Valid)
+    if (Is Manager Approval Required?) then (No (Auto-Approve))
+        :System auto-approves request;
+    else (Yes)
+        :Email Manager for approval;
+        :Manager reviews request;
+        if (Manager Approves?) then (No)
+            :Request rejected by Manager;
+            :Email Employee (Rejected);
+            stop
+        else (Yes)
+            :Request approved by Manager;
+        endif
+    endif
+endif
+
+'Merge approved paths
+:System updates HR Legacy Database;
+:System logs the activity;
+:Email Employee (Approved);
+stop
+
+@enduml

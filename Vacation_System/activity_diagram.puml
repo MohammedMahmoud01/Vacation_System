@@ -1,0 +1,43 @@
+@startuml VTS_ActivityDiagram_Workflow
+title Leave Request Submission & Approval Workflow
+
+|Employee|
+start
+:Submit Leave Request\n(Vacation/Sick/Personal);
+
+|VTS System|
+:Retrieve Employee Data from Legacy System;
+:Validate Request against Rules\n(Employment agreement logic);
+
+if (Is Request Valid?) then (No)
+    :Mark Request as Rejected;
+    :Send Rejection Notification to Employee;
+    stop
+else (Yes)
+    if (Requires Manager Approval?) then (No - Auto-Approval Role)
+        :Mark Request as Auto-Approved;
+    else (Yes)
+        :Set Status to "Pending Approval";
+        :Send Notification Email to Manager;
+        
+        |Manager|
+        :Receive Notification;
+        :Review Request Details;
+        if (Approve Request?) then (No)
+            |VTS System|
+            :Mark Request as Rejected;
+        else (Yes)
+            |VTS System|
+            :Mark Request as Approved;
+        endif
+    endif
+endif
+
+|VTS System|
+'Both approval paths merge here
+:Update Leave Records in HR Legacy System;
+:Log Transaction;
+:Send Final Status Notification to Employee;
+stop
+
+@enduml

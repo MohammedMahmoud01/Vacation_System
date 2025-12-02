@@ -1,0 +1,111 @@
+@startuml VTS_Class_Diagram
+skinparam class {
+    BackgroundColor White
+    BorderColor DarkBlue
+    ArrowColor #2A52BE
+}
+
+title Vacation Tracking System - Class Diagram
+
+' --- Enums ---
+enum LeaveStatus {
+    SUBMITTED
+    PENDING_APPROVAL
+    APPROVED
+    REJECTED
+    FAILED
+}
+
+enum LeaveCategory {
+    VACATION
+    SICK_LEAVE
+    PERSONAL_LEAVE
+}
+
+' --- Core Classes ---
+
+class SystemController {
+    +submitRequest(empID: int, req: LeaveRequest): boolean
+    +approveRequest(mgrID: int, reqID: int): boolean
+    +rejectRequest(mgrID: int, reqID: int, reason: String): boolean
+    +validateRequest(req: LeaveRequest): ValidationResult
+    +getEmployeeSummary(empID: int): SummaryReport
+    +awardPersonalTime(mgrID: int, empID: int, days: int): boolean
+}
+
+class Employee {
+    -employeeID: int
+    -name: String
+    -email: String
+    -legacySystemID: String
+    -leaveBalance: Map<LeaveCategory, int>
+    +getDetails(): EmployeeData
+    +viewHistory(year: int): List<LeaveRequest>
+}
+
+class Manager {
+    -approvalLimit: int
+    +approve(req: LeaveRequest): void
+    +reject(req: LeaveRequest): void
+    +awardTime(emp: Employee, days: int): void
+}
+
+class HRClerk {
+    -adminPrivileges: boolean
+    +overrideRequest(reqID: int): void
+    +viewAuditLogs(): List<LogEntry>
+}
+
+class LeaveRequest {
+    -requestID: int
+    -startDate: Date
+    -endDate: Date
+    -status: LeaveStatus
+    -submissionDate: Date
+    -rejectionReason: String
+    +calculateDuration(): int
+    +setStatus(s: LeaveStatus): void
+}
+
+class LeaveType {
+    -category: LeaveCategory
+    -maxDaysPerYear: int
+    -requiresApproval: boolean
+    -allowFutureBookingMonths: int
+    +validateRule(emp: Employee, req: LeaveRequest): boolean
+}
+
+class AuditLog {
+    -logID: int
+    -timestamp: DateTime
+    -actorID: int
+    -action: String
+    -details: String
+    +logEntry(): void
+}
+
+class NotificationService {
+    +sendEmail(to: String, subject: String, body: String): void
+}
+
+class LegacySystemAdapter {
+    +fetchEmployeeData(id: String): EmployeeData
+    +updateLeaveBalance(id: String, type: LeaveCategory, delta: int): boolean
+}
+
+' --- Relationships ---
+
+Manager --|> Employee : inherits
+HRClerk --|> Employee : inherits
+
+Employee "1" -- "0..*" LeaveRequest : creates >
+Manager "1" -- "0..*" LeaveRequest : approves >
+
+LeaveRequest "*" -- "1" LeaveType : is of type >
+
+SystemController ..> LeaveRequest : manages
+SystemController ..> NotificationService : uses
+SystemController ..> LegacySystemAdapter : uses
+SystemController "1" *-- "1" AuditLog : maintains
+
+@enduml

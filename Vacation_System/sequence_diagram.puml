@@ -1,0 +1,74 @@
+@startuml VTS_Sequence_Diagram
+autonumber
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+actor "Employee" as Emp
+participant "VTS Portal" as System
+database "HR Legacy DB" as Legacy
+participant "Email Server" as Email
+actor "Manager" as Mgr
+
+title Leave Request Process (Manual Approval Path)
+
+== Submission Phase ==
+Emp -> System : Submit Leave Request(Type, Dates)
+activate System
+
+System -> Legacy : GetEmployeeData(EmpID)
+activate Legacy
+Legacy --> System : Return Data (Role, Balance, ManagerID)
+deactivate Legacy
+
+System -> System : ValidateRequestRules()
+note right: Checks balance & employment agreement
+
+alt Request Invalid
+    System --> Emp : Display Error Message
+else Request Valid
+    System -> System : CheckApprovalRequired(Role)
+    
+    alt Auto-Approval (VIP Role)
+        System -> Legacy : UpdateBalance()
+        System -> Email : SendConfirmation(EmpID)
+        System --> Emp : Show "Approved" Status
+    else Manager Approval Required
+        System -> System : SetStatus("Pending Approval")
+        
+        System -> Email : SendNotification(ManagerID)
+        activate Email
+        Email -->> Mgr : Email: "Action Required"
+        deactivate Email
+        
+        System --> Emp : Show "Pending Manager Review"
+        deactivate System
+        
+        == Approval Phase ==
+        Mgr -> System : Login & View Request
+        activate System
+        
+        alt Manager Rejects
+            Mgr -> System : RejectRequest(Reason)
+            System -> System : SetStatus("Rejected")
+            System -> Email : SendRejectionEmail(EmpID)
+            System --> Mgr : Confirmation Msg
+        else Manager Approves
+            Mgr -> System : ApproveRequest()
+            
+            System -> Legacy : UpdateLeaveBalance(EmpID, Days)
+            activate Legacy
+            Legacy --> System : Success
+            deactivate Legacy
+            
+            System -> System : LogTransaction(Approved)
+            System -> Email : SendApprovalEmail(EmpID)
+            activate Email
+            Email -->> Emp : Email: "Request Approved"
+            deactivate Email
+            
+            System --> Mgr : Confirmation Msg
+        end
+        deactivate System
+    end
+end
+@enduml

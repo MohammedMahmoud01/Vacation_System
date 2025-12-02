@@ -1,0 +1,34 @@
+@startuml VTS_Deployment_Diagram
+left to right direction
+
+skinparam componentStyle uml2
+
+node "Client Workstation\n(Employee/Manager PC)" as ClientNode {
+    component "Web Browser" as Browser
+}
+
+node "Corporate Application Server" as AppServer {
+    component "Existing Intranet Portal" as Portal {
+        component "VTS Web Module" as VTS
+    }
+    
+    component "SSO Auth Service" as SSO
+}
+
+node "Database Server / Mainframe" as DBServer {
+    database "HR Legacy System\n(Employee Records)" as LegacyDB
+    database "VTS Audit Logs" as LogsDB
+}
+
+node "Mail Server" as MailNode {
+    component "SMTP Service" as SMTP
+}
+
+' Connections
+Browser -- Portal : HTTPS (Secure Web)
+VTS ..> SSO : Authenticates via
+Portal -- LegacyDB : JDBC / API (Employee Data)
+Portal -- LogsDB : SQL (Transaction Logs)
+VTS -- SMTP : SMTP (Notifications)
+
+@enduml
