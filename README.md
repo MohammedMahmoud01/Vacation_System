@@ -264,3 +264,19 @@ It showcases the interactions between the Employee, the VTS System, the Legacy D
 - **Legacy Adapter:** An "adapter" pattern is used to isolate the modern VTS from the specific technical details of the old "HR Legacy System."
 - **External Query API:** Represents the requirement for a "Web service interface for internal systems."
 ![Component Diagram](docs/diagrams/Vacation_System/component_diagram/VTS_Component_Diagram.svg)
+
+---
+### 9. VTS Class Diagram
+
+**Purpose:** This diagram represents the static structure of the system, showing the classes, their attributes, methods, and relationships.
+
+**Key Design Elements:**
+
+- **Request & LeaveType:** Separating `LeaveRequest` from `LeaveType` allows for the "flexible" definitions required (e.g., different rules for Sick vs. Vacation).
+- **Role-Based Inheritance:** `Employee` is the base class, and `Manager` inherits from it, adding specific approval capabilities.
+- **SystemController:** Acts as the facade for the business logic.
+![Class Diagram](docs/diagrams/Vacation_System/class_diagram/VTS_Class_Diagram.svg)
+
+## A suggested UI:
+**Employee Dashboard**
+![Employee Dashboard](docs/Employee_Dashboard.png)
