@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HR/Admin Dashboard - Vacation Tracking System</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#136dec",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101822",
+            },
+            fontFamily: {
+              "display": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="relative flex min-h-screen w-full">
+<!-- Side Navigation Bar -->
+<aside class="flex w-64 flex-col border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/50 p-4">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Company Logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuALZrZcKsAIYCAZlelvl8VMIY1lSyKK29oKB47TLnwsS3cMdpOFbon5xUuzGDKg4NdOP_RfF_Jx77PsoUL8GgfI3Np_epjYo-EyVDCX9nDp9kFkGi2ZJbc-0k_7fsKIXASmdtWoc-H1ix_244BFzFROiXkMZdDXsL9oki6LW8QWK2RuQnopF6yr4gKhwqnXydxVZ5D2ppHocg6pcTePFwLIaMxNUr0PrDaFsVRpcIqUYuAcpbrVhZoY95Q0BTBKEDI25-tBVhbDVmqs");'></div>
+<div class="flex flex-col">
+<h1 class="text-[#0d131b] dark:text-gray-100 text-base font-medium leading-normal">HR Admin</h1>
+<p class="text-[#4c6c9a] dark:text-gray-400 text-sm font-normal leading-normal">Vacation Tracking System</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 dark:bg-primary/20" href="#">
+<span class="material-symbols-outlined text-primary dark:text-primary">dashboard</span>
+<p class="text-primary dark:text-primary text-sm font-medium leading-normal">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800" href="#">
+<span class="material-symbols-outlined text-[#0d131b] dark:text-gray-300">group</span>
+<p class="text-[#0d131b] dark:text-gray-300 text-sm font-medium leading-normal">Employees</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800" href="#">
+<span class="material-symbols-outlined text-[#0d131b] dark:text-gray-300">summarize</span>
+<p class="text-[#0d131b] dark:text-gray-300 text-sm font-medium leading-normal">Reports</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800" href="#">
+<span class="material-symbols-outlined text-[#0d131b] dark:text-gray-300">settings</span>
+<p class="text-[#0d131b] dark:text-gray-300 text-sm font-medium leading-normal">Settings</p>
+</a>
+</nav>
+</div>
+<div class="mt-auto">
+<button class="flex min-w-[84px] w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90">
+<span class="truncate">Award Personal Leave</span>
+</button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 p-8">
+<div class="max-w-7xl mx-auto">
+<!-- Page Heading -->
+<div class="flex flex-wrap justify-between gap-3 mb-6">
+<div class="flex min-w-72 flex-col gap-2">
+<p class="text-[#0d131b] dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Administrator Dashboard</p>
+<p class="text-[#4c6c9a] dark:text-gray-400 text-base font-normal leading-normal">Overview of the Vacation Tracking System</p>
+</div>
+</div>
+<!-- Stats Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+<div class="flex flex-col gap-2 rounded-xl p-6 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/50">
+<p class="text-[#0d131b] dark:text-gray-200 text-base font-medium leading-normal">Pending Requests</p>
+<p class="text-[#0d131b] dark:text-white tracking-light text-3xl font-bold leading-tight">12</p>
+<p class="text-yellow-500 text-sm font-medium leading-normal flex items-center gap-1"><span class="material-symbols-outlined text-base">arrow_upward</span><span>+2% from last week</span></p>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/50">
+<p class="text-[#0d131b] dark:text-gray-200 text-base font-medium leading-normal">Employees on Leave Today</p>
+<p class="text-[#0d131b] dark:text-white tracking-light text-3xl font-bold leading-tight">8</p>
+<p class="text-red-500 text-sm font-medium leading-normal flex items-center gap-1"><span class="material-symbols-outlined text-base">arrow_downward</span><span>-5% from last week</span></p>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/50">
+<p class="text-[#0d131b] dark:text-gray-200 text-base font-medium leading-normal">Personal Leave Awarded (YTD)</p>
+<p class="text-[#0d131b] dark:text-white tracking-light text-3xl font-bold leading-tight">47</p>
+<p class="text-green-500 text-sm font-medium leading-normal flex items-center gap-1"><span class="material-symbols-outlined text-base">arrow_upward</span><span>+10% from last month</span></p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-8">
+<!-- Left Column: Pending Approvals & System Rules -->
+<div class="col-span-3 lg:col-span-2 flex flex-col gap-8">
+<!-- Pending Approvals Section -->
+<div class="bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-xl">
+<h2 class="text-[#0d131b] dark:text-white text-xl font-bold leading-tight tracking-[-0.015em] px-6 pb-3 pt-5">Pending Approvals</h2>
+<div class="px-6 py-3">
+<label class="flex flex-col min-w-40 h-11 w-full">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-[#4c6c9a] dark:text-gray-400 flex border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-gray-800 items-center justify-center pl-3 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#0d131b] dark:text-gray-200 focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-gray-800 h-full placeholder:text-[#4c6c9a] dark:placeholder:text-gray-500 px-4 rounded-l-none border-l-0 pl-2 text-sm font-normal leading-normal" placeholder="Search by employee name, leave type, or date..." value=""/>
+</div>
+</label>
+</div>
+<!-- Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="text-xs text-gray-500 dark:text-gray-400 uppercase bg-gray-50 dark:bg-gray-800">
+<tr>
+<th class="px-6 py-3" scope="col">Employee</th>
+<th class="px-6 py-3" scope="col">Leave Type</th>
+<th class="px-6 py-3" scope="col">Dates</th>
+<th class="px-6 py-3 text-right" scope="col">Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="bg-white dark:bg-gray-900/50 border-b dark:border-gray-700">
+<th class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap" scope="row">Olivia Rhye</th>
+<td class="px-6 py-4">Vacation</td>
+<td class="px-6 py-4">Oct 20 - Oct 25, 2023</td>
+<td class="px-6 py-4 text-right space-x-2">
+<button class="font-semibold text-red-500 hover:text-red-700 text-sm">Deny</button>
+<button class="font-semibold text-green-500 hover:text-green-700 text-sm">Approve</button>
+</td>
+</tr>
+<tr class="bg-white dark:bg-gray-900/50 border-b dark:border-gray-700">
+<th class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap" scope="row">Phoenix Baker</th>
+<td class="px-6 py-4">Sick Leave</td>
+<td class="px-6 py-4">Oct 22, 2023</td>
+<td class="px-6 py-4 text-right space-x-2">
+<button class="font-semibold text-red-500 hover:text-red-700 text-sm">Deny</button>
+<button class="font-semibold text-green-500 hover:text-green-700 text-sm">Approve</button>
+</td>
+</tr>
+<tr class="bg-white dark:bg-gray-900/50">
+<th class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap" scope="row">Lana Steiner</th>
+<td class="px-6 py-4">Personal Leave</td>
+<td class="px-6 py-4">Nov 01 - Nov 03, 2023</td>
+<td class="px-6 py-4 text-right space-x-2">
+<button class="font-semibold text-red-500 hover:text-red-700 text-sm">Deny</button>
+<button class="font-semibold text-green-500 hover:text-green-700 text-sm">Approve</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right Column: System Rules Management -->
+<div class="col-span-3 lg:col-span-1">
+<div class="bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-xl p-6">
+<h2 class="text-[#0d131b] dark:text-white text-xl font-bold leading-tight tracking-[-0.015em] mb-4">System Rules</h2>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium text-gray-700 dark:text-gray-300">Block Leave on Holidays</span>
+<label class="inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/30 dark:peer-focus:ring-primary/80 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium text-gray-700 dark:text-gray-300">Negative Balance Prevention</span>
+<label class="inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/30 dark:peer-focus:ring-primary/80 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium text-gray-700 dark:text-gray-300">Minimum Notice Period</span>
+<label class="inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/30 dark:peer-focus:ring-primary/80 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium text-gray-700 dark:text-gray-300">Require Manager Approval</span>
+<label class="inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/30 dark:peer-focus:ring-primary/80 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

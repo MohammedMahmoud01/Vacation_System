@@ -279,4 +279,35 @@ It showcases the interactions between the Employee, the VTS System, the Legacy D
 
 ## A suggested UI:
 **Employee Dashboard**
-![Employee Dashboard](docs/Employee_Dashboard.png)
+
+A central hub for employees to view their leave balances, upcoming approved leaves, and a clear call to action for submitting new requests.
+![Employee Dashboard](docs/UI/Employee_Dashboard/screen.png/)
+
+---
+
+**Submit Leave Request Dashboard**
+
+This screen provides a form for employees to select leave type, specify dates using a calendar, add notes, and view their balance impact before submitting the request.
+![Submit Leave Request Dashboard](docs/UI/Submit_Leave_Request/screen.png/)
+
+---
+
+**My Leave Requests Dashboard**
+
+This page allows employees to view a comprehensive list of their past and pending leave requests, complete with status, dates, and filtering options.
+![My Leave Requests Dashboard](docs/UI/My_Leave_Request/screen.png/)
+
+
+---
+**Manager Approval Dashboard**
+
+This dashboard is designed for managers to efficiently review, approve, or reject pending leave requests from their direct reports, with options for comments.
+![Manager Approval Dashboard](docs/UI/Leave_Approval_Request/screen.png/)
+
+---
+
+**HR/Admin Dashboard**
+
+This high-level dashboard provides HR personnel and administrators with tools to monitor system activity, manage overrides, access audit logs, and award personal leave.
+
+![HR/Admin Dashboard](docs/UI/Administrator_Dashboard/screen.png/)

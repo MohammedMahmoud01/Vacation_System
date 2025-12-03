@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Manager Approval Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#136dec",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101822",
+            },
+            fontFamily: {
+              "display": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col">
+<div class="flex h-full min-h-screen">
+<!-- SideNavBar -->
+<aside class="flex w-64 flex-col gap-y-6 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark p-4">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile picture of Daniel Radcliffe" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAbysyW3GmmYTeoEjPpBOEcmP0DsmTuoirgMakWpmRfPSB-oOmQMQmCDxzkVBwFWdLgBsFD9-gGGAfLgHkk92VdoouVji9ivDT8BruOOqmKqRlWUZyYfifIURaw1XSxd21ByFcA37AkBSzmkLj6npLysL800IsXuW1A0CfL92cb6YEfSATBikmMsnMe3nCbpj3QqrvxUlu8kDLU45Mg7a8Iiwc2gnVODXF6fPNbr5cIrpar6J_EAz8lex9FJLj-b9fmIX2A7UmS-7DB");'></div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-slate-50 text-base font-medium leading-normal">Daniel Radcliffe</h1>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">Manager</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 400, 'FILL' 0;">dashboard</span>
+<p class="text-sm font-medium leading-normal">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary dark:text-primary-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 400, 'FILL' 1;">check_circle</span>
+<p class="text-sm font-medium leading-normal">Approvals</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 400, 'FILL' 0;">calendar_month</span>
+<p class="text-sm font-medium leading-normal">Team Calendar</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 400, 'FILL' 0;">bar_chart</span>
+<p class="text-sm font-medium leading-normal">Reports</p>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 400, 'FILL' 0;">settings</span>
+<p class="text-sm font-medium leading-normal">Settings</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 400, 'FILL' 0;">help</span>
+<p class="text-sm font-medium leading-normal">Help</p>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto p-8">
+<div class="mx-auto max-w-7xl">
+<!-- PageHeading -->
+<div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+<p class="text-slate-900 dark:text-slate-50 text-4xl font-black leading-tight tracking-[-0.033em]">Leave Approval Dashboard</p>
+<div class="flex items-center gap-3">
+<button class="flex items-center justify-center gap-x-2 rounded-lg bg-red-600/10 px-4 h-10 text-red-600 dark:bg-red-500/20 dark:text-red-400 text-sm font-bold">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 600, 'FILL' 0;">close</span>
+<span>Bulk Reject</span>
+</button>
+<button class="flex items-center justify-center gap-x-2 rounded-lg bg-primary px-4 h-10 text-white text-sm font-bold">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 600, 'FILL' 0;">done</span>
+<span>Bulk Approve</span>
+</button>
+</div>
+</div>
+<!-- Stats -->
+<div class="grid grid-cols-1 gap-4 md:grid-cols-3 mb-6">
+<div class="flex flex-1 flex-col gap-2 rounded-lg p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+<p class="text-slate-700 dark:text-slate-300 text-base font-medium leading-normal">Pending Requests</p>
+<p class="text-slate-900 dark:text-slate-50 tracking-light text-2xl font-bold leading-tight">8</p>
+</div>
+<div class="flex flex-1 flex-col gap-2 rounded-lg p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+<p class="text-slate-700 dark:text-slate-300 text-base font-medium leading-normal">Approved This Week</p>
+<p class="text-slate-900 dark:text-slate-50 tracking-light text-2xl font-bold leading-tight">12</p>
+</div>
+<div class="flex flex-1 flex-col gap-2 rounded-lg p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+<p class="text-slate-700 dark:text-slate-300 text-base font-medium leading-normal">Upcoming Team Absences</p>
+<p class="text-slate-900 dark:text-slate-50 tracking-light text-2xl font-bold leading-tight">4</p>
+</div>
+</div>
+<!-- Filter & Sort Controls -->
+<div class="flex flex-wrap items-center gap-3 mb-6">
+<div class="flex-1 min-w-[240px] relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500">search</span>
+<input class="w-full h-10 pl-10 pr-4 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-primary/50 dark:text-slate-200" placeholder="Search by employee name..." type="text"/>
+</div>
+<!-- Chips -->
+<div class="flex gap-2">
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-primary text-white pl-4 pr-2">
+<p class="text-sm font-medium leading-normal">All</p>
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 400, 'FILL' 0;">arrow_drop_down</span>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-300 pl-4 pr-2">
+<p class="text-sm font-medium leading-normal">Vacation</p>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-300 pl-4 pr-2">
+<p class="text-sm font-medium leading-normal">Sick Leave</p>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-300 pl-4 pr-2">
+<p class="text-sm font-medium leading-normal">Personal</p>
+</button>
+</div>
+</div>
+<!-- Table -->
+<div class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="border-b border-slate-200 dark:border-slate-800">
+<tr>
+<th class="p-4 text-center">
+<input class="h-5 w-5 rounded border-slate-300 dark:border-slate-700 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0 dark:focus:border-primary" type="checkbox"/>
+</th>
+<th class="p-4 text-slate-600 dark:text-slate-400 text-sm font-medium">Employee Name</th>
+<th class="p-4 text-slate-600 dark:text-slate-400 text-sm font-medium">Leave Type</th>
+<th class="p-4 text-slate-600 dark:text-slate-400 text-sm font-medium">Dates</th>
+<th class="p-4 text-slate-600 dark:text-slate-400 text-sm font-medium">Total Days</th>
+<th class="p-4 text-slate-600 dark:text-slate-400 text-sm font-medium">Reason</th>
+<th class="p-4 text-slate-600 dark:text-slate-400 text-sm font-medium text-right">Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-slate-200 dark:border-slate-800">
+<td class="p-4 text-center">
+<input class="h-5 w-5 rounded border-slate-300 dark:border-slate-700 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0 dark:focus:border-primary" type="checkbox"/>
+</td>
+<td class="p-4 whitespace-nowrap text-slate-800 dark:text-slate-200 font-medium">Jordan Smith</td>
+<td class="p-4 whitespace-nowrap"><span class="inline-flex items-center rounded-md bg-green-500/10 px-2 py-1 text-xs font-medium text-green-700 dark:text-green-400">Vacation</span></td>
+<td class="p-4 whitespace-nowrap text-slate-500 dark:text-slate-400">Oct 25, 2024 → Oct 29, 2024</td>
+<td class="p-4 whitespace-nowrap text-slate-500 dark:text-slate-400">3</td>
+<td class="p-4 text-slate-500 dark:text-slate-400 max-w-xs truncate">Brief family trip to the mountains for a wedding...</td>
+<td class="p-4 whitespace-nowrap text-right">
+<div class="flex justify-end items-center gap-2">
+<button class="h-8 px-3 rounded-md border border-slate-300 dark:border-slate-700 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800">View Details</button>
+<button class="h-8 w-8 flex items-center justify-center rounded-md text-red-600 dark:text-red-500 hover:bg-red-500/10"><span class="material-symbols-outlined" style="font-variation-settings: 'wght' 500, 'FILL' 0;">close</span></button>
+<button class="h-8 w-8 flex items-center justify-center rounded-md text-green-600 dark:text-green-500 hover:bg-green-500/10"><span class="material-symbols-outlined" style="font-variation-settings: 'wght' 500, 'FILL' 0;">check</span></button>
+</div>
+</td>
+</tr>
+<tr class="border-b border-slate-200 dark:border-slate-800">
+<td class="p-4 text-center">
+<input class="h-5 w-5 rounded border-slate-300 dark:border-slate-700 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0 dark:focus:border-primary" type="checkbox"/>
+</td>
+<td class="p-4 whitespace-nowrap text-slate-800 dark:text-slate-200 font-medium">Alex Johnson</td>
+<td class="p-4 whitespace-nowrap"><span class="inline-flex items-center rounded-md bg-yellow-500/10 px-2 py-1 text-xs font-medium text-yellow-700 dark:text-yellow-400">Sick Leave</span></td>
+<td class="p-4 whitespace-nowrap text-slate-500 dark:text-slate-400">Oct 28, 2024 → Oct 28, 2024</td>
+<td class="p-4 whitespace-nowrap text-slate-500 dark:text-slate-400">1</td>
+<td class="p-4 text-slate-500 dark:text-slate-400 max-w-xs truncate">Feeling unwell, doctor's appointment in the...</td>
+<td class="p-4 whitespace-nowrap text-right">
+<div class="flex justify-end items-center gap-2">
+<button class="h-8 px-3 rounded-md border border-slate-300 dark:border-slate-700 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800">View Details</button>
+<button class="h-8 w-8 flex items-center justify-center rounded-md text-red-600 dark:text-red-500 hover:bg-red-500/10"><span class="material-symbols-outlined" style="font-variation-settings: 'wght' 500, 'FILL' 0;">close</span></button>
+<button class="h-8 w-8 flex items-center justify-center rounded-md text-green-600 dark:text-green-500 hover:bg-green-500/10"><span class="material-symbols-outlined" style="font-variation-settings: 'wght' 500, 'FILL' 0;">check</span></button>
+</div>
+</td>
+</tr>
+<tr class="border-b border-slate-200 dark:border-slate-800">
+<td class="p-4 text-center">
+<input class="h-5 w-5 rounded border-slate-300 dark:border-slate-700 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0 dark:focus:border-primary" type="checkbox"/>
+</td>
+<td class="p-4 whitespace-nowrap text-slate-800 dark:text-slate-200 font-medium">Maria Garcia</td>
+<td class="p-4 whitespace-nowrap"><span class="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-700 dark:text-purple-400">Personal</span></td>
+<td class="p-4 whitespace-nowrap text-slate-500 dark:text-slate-400">Nov 4, 2024 → Nov 5, 2024</td>
+<td class="p-4 whitespace-nowrap text-slate-500 dark:text-slate-400">2</td>
+<td class="p-4 text-slate-500 dark:text-slate-400 max-w-xs truncate">Moving to a new apartment, need time for packing...</td>
+<td class="p-4 whitespace-nowrap text-right">
+<div class="flex justify-end items-center gap-2">
+<button class="h-8 px-3 rounded-md border border-slate-300 dark:border-slate-700 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800">View Details</button>
+<button class="h-8 w-8 flex items-center justify-center rounded-md text-red-600 dark:text-red-500 hover:bg-red-500/10"><span class="material-symbols-outlined" style="font-variation-settings: 'wght' 500, 'FILL' 0;">close</span></button>
+<button class="h-8 w-8 flex items-center justify-center rounded-md text-green-600 dark:text-green-500 hover:bg-green-500/10"><span class="material-symbols-outlined" style="font-variation-settings: 'wght' 500, 'FILL' 0;">check</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

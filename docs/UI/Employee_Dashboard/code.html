@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Employee Dashboard - Vacation Tracking System</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body class="font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="sticky top-0 z-10 w-full bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-800">
+<div class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+<div class="flex items-center justify-between h-16">
+<div class="flex items-center gap-4 text-slate-900 dark:text-slate-50">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl">event_available</span>
+<h2 class="text-lg font-bold">Vacation Tracking System</h2>
+</div>
+<div class="hidden md:flex items-center gap-6 pl-6">
+<a class="text-slate-900 dark:text-slate-50 text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="#">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="#">My Requests</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="#">Team Calendar</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-slate-50 text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
+<span class="truncate">Request Time Off</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile picture of Maria" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAoWaun3pcx8F3S5VB5UpmYrfwGoIeKjhRswR2v4Op9hwrmUDfAVDXlU2o0jXI8X6mwPc2QetL3cJoOIP4AStaLiys86dYq7g88guaOXI50Si6eWRwAAw0DlB2Yw7VNRTilsW_jIArhGbqQeVX3yuSGoc9pSzGf2KEhR786M4zh3Zmj9jVpaYhc-fSr2p-T9AgryO3-tKGq4qX1C942H3BrSKr68-dQxsRDVvwStjMS_ipUvP1mdx2OL4o3XDJSYU9r-PDgVOhceQRu");'></div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+<div class="flex flex-col gap-10">
+<div>
+<p class="text-slate-900 dark:text-slate-50 text-4xl font-black leading-tight tracking-[-0.033em]">Welcome, Maria</p>
+</div>
+<section>
+<h2 class="text-slate-900 dark:text-slate-50 text-[22px] font-bold leading-tight tracking-[-0.015em] pb-3">My Balances</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+<p class="text-slate-600 dark:text-slate-400 text-base font-medium leading-normal">Vacation</p>
+<p class="text-slate-900 dark:text-slate-50 tracking-light text-3xl font-bold leading-tight">12 Days</p>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+<p class="text-slate-600 dark:text-slate-400 text-base font-medium leading-normal">Sick Leave</p>
+<p class="text-slate-900 dark:text-slate-50 tracking-light text-3xl font-bold leading-tight">8 Days</p>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+<p class="text-slate-600 dark:text-slate-400 text-base font-medium leading-normal">Personal Leave</p>
+<p class="text-slate-900 dark:text-slate-50 tracking-light text-3xl font-bold leading-tight">3 Days</p>
+</div>
+</div>
+</section>
+<section>
+<h2 class="text-slate-900 dark:text-slate-50 text-[22px] font-bold leading-tight tracking-[-0.015em] pb-3">Upcoming Approved Leave</h2>
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-sm text-left text-slate-500 dark:text-slate-400">
+<thead class="text-xs text-slate-700 dark:text-slate-300 uppercase bg-slate-50 dark:bg-slate-800">
+<tr>
+<th class="px-6 py-3 font-medium" scope="col">Leave Type</th>
+<th class="px-6 py-3 font-medium" scope="col">Start Date</th>
+<th class="px-6 py-3 font-medium" scope="col">End Date</th>
+<th class="px-6 py-3 font-medium" scope="col">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="bg-white dark:bg-slate-900 border-b dark:border-slate-800 last:border-b-0">
+<th class="px-6 py-4 font-medium text-slate-900 dark:text-white whitespace-nowrap" scope="row">Vacation</th>
+<td class="px-6 py-4">July 22, 2024</td>
+<td class="px-6 py-4">July 26, 2024</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-300 text-xs font-medium px-2.5 py-0.5 rounded-full">Approved</span>
+</td>
+</tr>
+<tr class="bg-white dark:bg-slate-900 border-b dark:border-slate-800 last:border-b-0">
+<th class="px-6 py-4 font-medium text-slate-900 dark:text-white whitespace-nowrap" scope="row">Personal Leave</th>
+<td class="px-6 py-4">August 15, 2024</td>
+<td class="px-6 py-4">August 15, 2024</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-300 text-xs font-medium px-2.5 py-0.5 rounded-full">Approved</span>
+</td>
+</tr>
+<tr class="bg-white dark:bg-slate-900 border-b dark:border-slate-800 last:border-b-0">
+<th class="px-6 py-4 font-medium text-slate-900 dark:text-white whitespace-nowrap" scope="row">Vacation</th>
+<td class="px-6 py-4">December 23, 2024</td>
+<td class="px-6 py-4">January 2, 2025</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-300 text-xs font-medium px-2.5 py-0.5 rounded-full">Approved</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section>
+<h2 class="text-slate-900 dark:text-slate-50 text-[22px] font-bold leading-tight tracking-[-0.015em] pb-3">Recent Activity</h2>
+<div class="flex flex-col gap-4">
+<div class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-10 rounded-full bg-green-100 dark:bg-green-900">
+<span class="material-symbols-outlined text-green-600 dark:text-green-400">task_alt</span>
+</div>
+<div>
+<p class="font-semibold text-slate-900 dark:text-slate-50">Sick Leave Request</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">June 10, 2024</p>
+</div>
+</div>
+<span class="text-sm font-medium text-green-700 dark:text-green-400">Approved</span>
+</div>
+<div class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-10 rounded-full bg-orange-100 dark:bg-orange-900">
+<span class="material-symbols-outlined text-orange-600 dark:text-orange-400">pending</span>
+</div>
+<div>
+<p class="font-semibold text-slate-900 dark:text-slate-50">Vacation Request</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">July 22 - 26, 2024</p>
+</div>
+</div>
+<span class="text-sm font-medium text-orange-600 dark:text-orange-400">Pending</span>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</div>
+</body></html>
