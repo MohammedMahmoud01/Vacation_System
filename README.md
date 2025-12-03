@@ -122,6 +122,17 @@ This diagram defines the **scope** of the VTS. It shows *who* (the actors) can d
 - **Extend Relationships:** Notifications happen conditionally based on the outcome of other use cases (submitting, approving, rejecting). This is an `<<extend>>`.
 ![Use Case Diagram](docs/diagrams/Vacation_System/use_case_diagram/VTS_UseCaseDiagram.svg)
 
+
+### **How the Diagram Behaves**
+
+- **Employees** create and view leave requests.
+- **Managers** make decisions and award extra leave.
+- **HR/Admins** override rules and view logs.
+- **External systems** can query vacation info.
+- **Validation and Employee Data retrieval** are always triggered when necessary (via include).
+- **Notifications happen only when needed** (via extend).
+- **HR Legacy System** provides core employee data.
+- **Email Server** sends out relevant notifications.
 ---
 
 ### 2. VTS Activity Diagram (Swimlane Workflow)
@@ -135,6 +146,26 @@ This diagram defines the **scope** of the VTS. It shows *who* (the actors) can d
 - **The "Optional Approval" Constraint:** The critical decision node `if (Requires Manager Approval?)` implements the requirement that some high-level employees might bypass approval, ensuring the "at most one manual approval" rule is met.
 ![Activity Diagram](docs/diagrams/Vacation_System/activity_diagram/VTS_ActivityDiagram_Workflow.svg)
 
+### **The Activity Flow Works Like This**
+
+1. Employee submits request
+2. System retrieves data
+3. System validates rules
+4. If invalid → automatic rejection
+5. If valid → system decides if manager approval is required
+6. If no approval required → auto-approval
+7. If approval required → manager reviews and decides
+8. System updates HR data
+9. System logs actions
+10. System sends final notification
+11. Process ends
+
+This model:
+
+- Shows **exact responsibility per swimlane**
+- Ensures **automated rule enforcement**
+- Enforces **“at most one manual approval”**
+- Demonstrates **conditional behavior** for both auto-approval and manager review
 ---
 ### 3. VTS Flow Chart
 
@@ -231,6 +262,28 @@ This diagram clearly shows the five possible end states for a request: Approved,
 
 ![State Machine Diagram](docs/diagrams/Vacation_System/state_machine_diagram/VTS_Leave_Request_State_Machine.svg)
 
+### **Summary — Lifecycle Logic**
+
+1. **Submitted**
+    - Validate and determine approval path
+2. **If valid + no approval needed → Approved**
+3. **If valid + approval needed → PendingApproval**
+4. **If manager approves → Approved**
+5. **If manager rejects → Rejected_Manager**
+6. **If validation fails → Rejected_VTS**
+7. **If system errors → Failed**
+8. **If manager times out → PendingEscalated**
+
+The diagram clearly shows:
+
+✔ All possible paths
+
+✔ All final outcomes
+
+✔ What triggers each transition
+
+✔ Internal system actions on each state entry or exit
+
 ---
 ### 6. VTS Sequence Diagram
 
@@ -238,7 +291,19 @@ This diagram clearly shows the five possible end states for a request: Approved,
 
 ![Sequence Diagram](docs/diagrams/Vacation_System/sequence_diagram/VTS_Sequence_Diagram.svg)
 
-It showcases the interactions between the Employee, the VTS System, the Legacy Database, the Email Server, and the Manager.
+### **Summary of the Sequence Flow**
+
+1. Employee submits leave request
+2. System fetches data from HR Legacy DB
+3. System validates request
+4. System checks whether approval is needed
+5. If approval required → notifies manager
+6. Manager logs in and reviews request
+7. Manager approves or rejects
+8. System updates records, logs activity, and notifies employee
+9. Manager receives confirmation
+
+This sequence shows **who communicates with whom**, **in what order**, and **with what purpose**, capturing the entire manual-approval workflow from start to finish.
 
 ---
 
@@ -265,6 +330,21 @@ It showcases the interactions between the Employee, the VTS System, the Legacy D
 - **External Query API:** Represents the requirement for a "Web service interface for internal systems."
 ![Component Diagram](docs/diagrams/Vacation_System/component_diagram/VTS_Component_Diagram.svg)
 
+### **How the Components Work Together**
+
+Here’s the high-level flow of interactions:
+
+1. **User interacts with the Web Portal UI**.
+2. **UI forwards requests to the Request Controller**.
+3. **The Controller authenticates with SSO**, validates session.
+4. **Controller uses Business Rules Engine** to validate logic.
+5. If employee data is needed, **Rules Engine or Controller contacts the Legacy Adapter**, which connects to the HR Legacy System.
+6. **Controller updates the Audit Log DB** as needed.
+7. **Controller triggers Notification Service** to send relevant emails.
+8. **External systems can retrieve summaries via the Query API** (ISummaryQuery).
+
+Each component uses interfaces so the system stays flexible, loosely coupled, and easy to maintain.
+
 ---
 ### 9. VTS Class Diagram
 
@@ -276,6 +356,8 @@ It showcases the interactions between the Employee, the VTS System, the Legacy D
 - **Role-Based Inheritance:** `Employee` is the base class, and `Manager` inherits from it, adding specific approval capabilities.
 - **SystemController:** Acts as the facade for the business logic.
 ![Class Diagram](docs/diagrams/Vacation_System/class_diagram/VTS_Class_Diagram.svg)
+
+
 
 ## A suggested UI:
 **Employee Dashboard**
