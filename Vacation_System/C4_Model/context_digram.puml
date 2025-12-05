@@ -1,0 +1,32 @@
+@startuml VTS_C4_Context
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+LAYOUT_WITH_LEGEND()
+
+title System Context Diagram for Vacation Tracking System (VTS)
+
+' Actors
+Person(employee, "Employee", "A staff member who requests leave and views history.")
+Person(manager, "Manager", "Approves requests and awards personal time.")
+Person(hr, "HR Clerk", "Oversees system, handles overrides and reporting.")
+Person(admin, "System Admin", "Configures system and monitors logs.")
+
+' The Main System
+System(vts, "Vacation Tracking System", "Allows employees to manage leave requests, automates validation, and handles approvals.")
+
+' External Systems
+System_Ext(legacy, "HR Legacy System", "Existing mainframe system storing official employee records and leave balances.")
+System_Ext(email, "Email Server", "Internal SMTP server for sending notifications.")
+System_Ext(sso, "Intranet SSO", "Corporate Single Sign-On provider for authentication.")
+
+' Relationships
+Rel(employee, vts, "Submits requests, views history", "HTTPS")
+Rel(manager, vts, "Approves requests, awards time", "HTTPS")
+Rel(hr, vts, "Overrides rules, views reports", "HTTPS")
+Rel(admin, vts, "Administers system", "HTTPS")
+
+Rel(vts, legacy, "Retrieves employee data, updates balances", "JDBC/API")
+Rel(vts, email, "Sends notification emails", "SMTP")
+Rel(vts, sso, "Authenticates users", "SAML/OIDC")
+
+@enduml

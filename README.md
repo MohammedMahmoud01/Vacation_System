@@ -393,3 +393,121 @@ This dashboard is designed for managers to efficiently review, approve, or rejec
 This high-level dashboard provides HR personnel and administrators with tools to monitor system activity, manage overrides, access audit logs, and award personal leave.
 
 ![HR/Admin Dashboard](docs/UI/Administrator_Dashboard/screen.png/)
+
+---
+# 📋 **C4 Model for the Vacation Tracking System (VTS)**
+
+## 🎯 **Understanding the C4 Model**
+
+The **C4 model** is a visual way to explain software architecture through four levels of detail, from a high-level overview down to specific code components.
+
+
+---
+
+## 📌 **Level 1: Context Diagram**
+![Context Diagram](docs/diagrams/Vacation_System/C4_Model/context_digram/VTS_C4_Context.svg)
+
+
+
+### **🎯 Purpose**
+Shows the VTS in its environment: **who uses it** and **what other systems it talks to**.
+
+### **🧑‍💼 Key Actors**
+| **Actor** | **Role** | **Main Interaction** |
+|-----------|----------|----------------------|
+| **Employee** | Primary user | Submit/view leave requests |
+| **Manager** | Approver | Approve requests & award leave |
+| **HR Clerk** | Supervisor | Handle exceptions & reports |
+| **System Admin** | Maintainer | Configure system & monitor logs |
+
+### **🔗 External Systems**
+| **System** | **Purpose** | **Connection Type** |
+|------------|-------------|---------------------|
+| **HR Legacy System** | Source of truth for employee data | Database/API connection |
+| **Email Server** | Send notifications | Email protocol (SMTP) |
+| **Intranet SSO** | Authenticate users | Security protocol (SAML/OIDC) |
+
+### **🧠 Summary**
+> *The VTS sits between company staff and existing corporate systems, automating what was a manual HR process.*
+
+---
+
+## 📦 **Level 2: Container Diagram**
+*(The 10,000-foot view: What are the main deployable units/parts?)*
+
+![Container Diagram](docs/diagrams/Vacation_System/C4_Model/container_diagram/VTS_C4_Container.svg)
+
+### **🎯 Purpose**
+Breaks the VTS into its major **deployable parts** (containers) and how they communicate.
+
+### **📦 Key Containers**
+| **Container** | **Technology** | **Responsibility** |
+|---------------|----------------|---------------------|
+| **Single Page Application** | React or Angular | User interface in browser |
+| **API Application** | Java Spring Boot | Business logic & workflow |
+| **Audit & Cache Database** | PostgreSQL | Store logs & temporary data |
+
+### **🔌 Communication Flows**
+1. **User → Web App** → Browser interaction
+2. **Web App → API** → Business operations via HTTPS/JSON
+3. **API → Database** → Store audit logs via JDBC
+4. **API → Legacy System** → Sync employee data
+5. **API → Email Server** → Send notifications
+6. **Web App → SSO** → Authenticate users
+
+### **🧠 Summary**
+> *The VTS has three main technical pieces: a frontend UI, a backend API, and a database, all communicating with existing corporate infrastructure.*
+
+---
+
+## 🧩 **Level 3: Component Diagram**
+*(The 1,000-foot view: What's inside the API Application?)*
+
+![Component Diagram](docs/diagrams/Vacation_System/C4_Model/component_diagram/VTS_C4_Component.svg)
+
+### **🎯 Purpose**
+Zooms into the **API Application** to show its internal components and their responsibilities.
+
+### **🧩 Key Components**
+| **Component** | **Type** | **Responsibility** |
+|---------------|----------|---------------------|
+| **Sign In Controller** | REST Controller | Handle SSO authentication |
+| **Leave Request Controller** | REST Controller | Manage leave requests |
+| **Security Component** | Framework module | Check user permissions |
+| **Business Rules Engine** | Service | Validate requests against policies |
+| **Approval Workflow Service** | Service | Manage approval process |
+| **Legacy System Adapter** | Adapter | Translate to legacy system format |
+| **Audit Logger** | Service | Record all actions |
+| **Email Service** | Service | Send notifications |
+
+### **🔄 How It Works Together**
+1. **User makes request** → Web App → Leave Controller
+2. **Security checks** → Is user authorized?
+3. **Rules Engine validates** → Checks employment agreement rules
+4. **Approval Service decides** → Auto-approve or send to manager?
+5. **Legacy Adapter syncs** → Updates HR system if approved
+6. **Email Service notifies** → Sends updates to relevant parties
+7. **Audit Logger records** → Everything is logged to database
+
+### **🧠 Summary**
+> *The API is built around a clear workflow: validate → approve → sync → notify → audit, with adapters to connect to existing corporate systems.*
+
+---
+
+## 🏁 **Conclusion: The Complete Picture**
+
+| **Level** | **Shows** | **Useful For** | **VTS Example** |
+|-----------|-----------|----------------|-----------------|
+| **Context** | System purpose & external relationships | Business stakeholders | VTS helps employees manage leave with less HR work |
+| **Container** | Major technical pieces & connections | Technical leaders | Web app + API + database architecture |
+| **Component** | Internal services within a container | Development teams | How validation, approval, and logging work together |
+| **Code** | Classes & implementation details | Developers | (Not shown - would detail Java classes, methods, etc.) |
+
+### **🎯 Why This Architecture Works for VTS**
+1. **Separation of concerns** → UI, logic, and data are separate
+2. **Integration-ready** → Adapters handle legacy system complexity
+3. **Auditable** → Every action is logged
+4. **Scalable** → API can be scaled independently of UI
+5. **Maintainable** → Clear boundaries between components
+
+---

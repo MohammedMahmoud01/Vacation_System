@@ -1,0 +1,46 @@
+@startuml VTS_C4_Component
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component Diagram for VTS API Application
+
+Container(web_app, "Single Page Application", "React/Angular", "User Interface")
+System_Ext(legacy, "HR Legacy System", "Mainframe")
+System_Ext(email, "Email Server", "SMTP")
+ContainerDb(db, "Audit Database", "PostgreSQL", "Stores logs")
+
+Container_Boundary(api, "API Application") {
+    Component(sign_in_controller, "Sign In Controller", "Spring MVC Rest Controller", "Handles authentication callbacks from SSO.")
+    Component(leave_controller, "Leave Request Controller", "Spring MVC Rest Controller", "Endpoints for submitting and retrieving requests.")
+    
+    Component(security, "Security Component", "Spring Security", "Ensures users are authorized for specific actions.")
+    Component(rules_engine, "Business Rules Engine", "Service", "Validates requests against employment agreements (e.g., notice periods, max days).")
+    Component(approval_service, "Approval Workflow Service", "Service", "Determines if manager approval is required and manages state transitions.")
+    
+    Component(legacy_adapter, "Legacy System Adapter", "Component", "Facade that translates modern API calls to legacy mainframe commands.")
+    Component(audit_service, "Audit Logger", "Service", "Logs all overrides and transactions.")
+    Component(email_adapter, "Email Service", "Component", "Formats and sends email notifications.")
+}
+
+' Relationships
+Rel(web_app, sign_in_controller, "Authenticates", "JSON/HTTPS")
+Rel(web_app, leave_controller, "Submits requests", "JSON/HTTPS")
+
+Rel(sign_in_controller, security, "Uses")
+Rel(leave_controller, security, "Checks permissions")
+
+Rel(leave_controller, rules_engine, "Validates Request")
+Rel(leave_controller, approval_service, "Initiates Workflow")
+
+Rel(rules_engine, legacy_adapter, "Fetches Balance/Rules")
+Rel(approval_service, legacy_adapter, "Updates Balance")
+Rel(approval_service, email_adapter, "Triggers Notification")
+
+Rel(legacy_adapter, legacy, "Read/Write", "TCP/IP")
+Rel(email_adapter, email, "Sends", "SMTP")
+
+Rel(leave_controller, audit_service, "Logs activity")
+Rel(audit_service, db, "Persists logs", "JDBC")
+
+@enduml

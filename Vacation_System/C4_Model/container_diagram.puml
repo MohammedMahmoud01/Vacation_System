@@ -1,0 +1,35 @@
+@startuml VTS_C4_Container
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Container Diagram for Vacation Tracking System (VTS)
+
+' Actors
+Person(employee, "Employee", "A staff member.")
+Person(manager, "Manager", "Approves requests.")
+
+' System Boundary
+System_Boundary(c1, "Vacation Tracking System") {
+    Container(web_app, "Single Page Application", "React/Angular", "Provides the dashboard and request interface for all users via web browser.")
+    Container(api_app, "API Application", "Java Spring Boot", "Handles business logic, validation rules, approval workflow, and legacy integration.")
+    Container(db, "Audit & Cache Database", "PostgreSQL", "Stores transaction logs, application state, and cached employee summaries.")
+}
+
+' External Systems
+System_Ext(legacy, "HR Legacy System", "Mainframe DB")
+System_Ext(email, "Email Server", "SMTP")
+System_Ext(sso, "Intranet SSO", "Identity Provider")
+
+' Relationships
+Rel(employee, web_app, "Uses", "HTTPS")
+Rel(manager, web_app, "Uses", "HTTPS")
+
+Rel(web_app, api_app, "Makes API calls", "JSON/HTTPS")
+Rel(api_app, db, "Reads/Writes logs", "JDBC")
+
+Rel(api_app, legacy, "Syncs leave data", "Proprietary Protocol")
+Rel(api_app, email, "Sends emails", "SMTP")
+Rel(web_app, sso, "Redirects for login", "HTTPS")
+
+@enduml
