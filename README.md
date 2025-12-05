@@ -433,7 +433,6 @@ Shows the VTS in its environment: **who uses it** and **what other systems it ta
 ---
 
 ## 📦 **Level 2: Container Diagram**
-*(The 10,000-foot view: What are the main deployable units/parts?)*
 
 ![Container Diagram](docs/diagrams/Vacation_System/C4_Model/container_diagram/VTS_C4_Container.svg)
 
@@ -461,8 +460,6 @@ Breaks the VTS into its major **deployable parts** (containers) and how they com
 ---
 
 ## 🧩 **Level 3: Component Diagram**
-*(The 1,000-foot view: What's inside the API Application?)*
-
 ![Component Diagram](docs/diagrams/Vacation_System/C4_Model/component_diagram/VTS_C4_Component.svg)
 
 ### **🎯 Purpose**
